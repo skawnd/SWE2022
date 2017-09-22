@@ -1,10 +1,22 @@
 package lesson3;
 
+import java.util.ArrayList;
+
 public class Constructor {
 
     private String firstName;
     private String lastName;
+    private String seperator;
+    private ArrayList<String> friends;
 
+    {
+        seperator = " ";
+    }
+    {
+        friends = new ArrayList<>();
+        friends.add("mike");
+        friends.add("jane");
+    }
     public Constructor(){
         this("john", "doe");
 
@@ -15,13 +27,16 @@ public class Constructor {
 
     }
 
-    public Constructor(String a, String b){
-        firstName = a;
-        lastName = b;
+    public Constructor(String fname, String lname){
+        firstName = fname;
+        lastName = lname;
 
     }
 
     public String getName(){
         return firstName+" "+lastName;
+    }
+    public String getFriend(int index){
+        return friends.get(index);
     }
 }
