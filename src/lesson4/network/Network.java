@@ -21,9 +21,11 @@ public class Network {
         public item additem(String name){
            return new item(name);
         }
-
         public void leave(){
-
+            unenroll(this);
+        }
+        public boolean belongsTo(Network n){
+            return n == Network.this;
         }
     }
     //Network----------------------------------------------------------------------------------
@@ -43,4 +45,5 @@ public class Network {
     public void leave(){
         members.remove(this);
     }
+
 }
