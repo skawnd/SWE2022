@@ -8,7 +8,7 @@ public class ImportTest {
         System.out.println(Imported.getText());
         //System.out.println(getText());
         StaticinnerClass.Class2 c = new StaticinnerClass.Class2();
-        StaticinnerClass.Class2.Class2Class1 c = new StaticinnerClass.Class2.Class2Class1();
+        StaticinnerClass.Class2.Class2Class1 c2 = new StaticinnerClass.Class2.Class2Class1();
 
     }
 }
