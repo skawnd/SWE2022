@@ -14,6 +14,11 @@ public class Inout {
         String name = in.nextLine();
         System.out.println("Your name is "+name);
 
+        System.out.println("How old are you?");
+        in = new Scanner(System.in);
+        int age = in.nextInt();
+        System.out.println("your age is "+age);
+
         System.out.println("Favorite Numbers?");
         in = new Scanner(System.in);
         while (in.hasNextInt()){
