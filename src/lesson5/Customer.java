@@ -1,5 +1,5 @@
 package lesson5;
-
+// DepositRequest보다 더 구상화된 Deposit은 Downcast되었음.
 public class Customer {
     static class Deposit implements DepositRequest{
 
@@ -29,7 +29,8 @@ public class Customer {
     }
     public boolean deposit(Banker b, Currency c, int q){
         return b.requestDeposit(new Deposit(this, new Money(c,q), new Account()));
-    }
+        // Account - 계좌번호, 은행, 예금주
+        }
 
 
 }
