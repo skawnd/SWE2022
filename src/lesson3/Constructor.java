@@ -1,13 +1,13 @@
 package lesson3;
 
-
-
+import javax.sql.ConnectionPoolDataSource;
 import java.util.ArrayList;
+import java.util.concurrent.locks.Condition;
 
 public class Constructor {
 
-    private String firstName;
-    private String lastName;
+    final String firstName;
+    private final String lastName;
     private String seperator;
     private ArrayList<String> friends;
     {
@@ -20,22 +20,19 @@ public class Constructor {
     }
 
     public Constructor(){
-        this("john","doe");
+        this("john", "doe");
     }
-
     public Constructor(String fname){
         this(fname, "doe");
     }
-
-    public Constructor(String fname, String lname){
-        this.firstName = fname;
+    public Constructor(String firstName, String lname){
+        this.firstName = firstName;
         this.lastName = lname;
     }
     public String getName(){
-        return firstName + seperator + lastName;
+        return this.firstName + this.seperator + this.lastName;
     }
     public String getFriend(int index){
-        return friends.get(index);
+        return this.friends.get(index) + " is " + this.getName() + "'s friend";
     }
-
 }

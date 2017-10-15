@@ -13,5 +13,8 @@ public class ClassBase1 {
         System.out.println(c2.getName());
         System.out.println(c2.getFriend(0));
 
+
+        Noconst no = new Noconst();
+        System.out.println(no.getFirstName(c2));
     }
 }

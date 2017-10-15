@@ -2,6 +2,6 @@ package lesson3;
 
 public class Noconst {
     public String getFirstName(Constructor c){
-        return "A";
+        return c.firstName.substring(0,2)+ "... ";
     }
 }
