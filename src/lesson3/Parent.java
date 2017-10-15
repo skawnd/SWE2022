@@ -14,6 +14,6 @@ public class Parent {
     }
 
     public String action(){
-        return "Parent";
+        return "parent";
     }
 }
