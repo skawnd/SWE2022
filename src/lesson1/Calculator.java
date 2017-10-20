@@ -7,7 +7,7 @@ import java.util.stream.Stream;
 
 public class Calculator {
 
-    static class Expression{
+    static public class Expression{
         static private Map<String, BiFunction<Integer, Integer, Integer>> op = new HashMap<>();
         static {
             /*

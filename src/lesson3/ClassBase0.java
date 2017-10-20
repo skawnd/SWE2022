@@ -1,7 +1,10 @@
 package lesson3;
 
+import lesson1.*;
+
 public class ClassBase0 {
     static public void main(String[] arg){
+        Calculator c = new Calculator();
         Parent parent = new Child(); //대체가능성
 
         System.out.println( parent.action() ); //내적 일관성
