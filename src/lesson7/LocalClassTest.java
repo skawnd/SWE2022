@@ -13,13 +13,9 @@ public class LocalClassTest {
     public static IntSequence randonInts(int low, int high){
         //랜덤 인트 메서드를 호출할 때마다 클래스가 생성됨.
         //메서드 호출될 때마다 자유변수가 캡쳐되어 final로 선언되는 방식.(사실상 최종 변수)
-        return new IntSequence(){
+        return ()->low+generator.nextInt(high-low+1);
 
-            @Override
-            public int next() {
-                return low+generator.nextInt(high-low+1);
-            }
-        };
+
 
     }
 }
