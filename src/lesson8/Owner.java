@@ -8,5 +8,29 @@ package lesson8;
 //      X27 <---------------                 (디커플링)
 //      X27 ----------------> 교환소 --(임플리먼트)--> 여러분(115) (변경되어도 상관 없음)
 class Owner {
+    private final int OwnerValue;
+    private final Base ownerBase;
 
+    Owner(int ownerValue, Base ownerBase) {
+        this.OwnerValue = ownerValue;
+        this.ownerBase = ownerBase;
+    }
+
+    @Override
+    // 메서드에 throws 선언을 하면 밖에서는 try/catch를 걸지 않으면 사용할 수 없음
+    protected Owner clone() throws CloneNotSupportedException {
+        // 얕은 복사
+        Owner result = new Owner(this.OwnerValue, this.ownerBase);
+
+        // 깊은 복사 - clone을 호출하면 clone을 호출함 - 컴퍼런트 패턴?
+        // 오너는 오너만 신경 쓰고, 하위 구성요소에 대한 책임은 하위 구성요소가 맡음.(하위 위임)
+        // 단일 책임 원칙!
+        result = new Owner(this.OwnerValue, this.ownerBase.clone());
+
+        return result;
+    }
+
+    public Base getBase() {
+        return ownerBase;
+    }
 }

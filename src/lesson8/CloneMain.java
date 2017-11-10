@@ -3,5 +3,19 @@ package lesson8;
 public class CloneMain {
 
 
-    static public void main(String[] arg){}
+    static public void main(String[] arg){
+        Base b1 = new Base(10); // b2 = new Base(20);
+        Owner o1 = new Owner(10, b1);
+
+        Owner o2 = null;
+        try {
+            o2 = o1.clone();
+        } catch (CloneNotSupportedException e) {
+            e.printStackTrace();
+        }
+        Base b2 = o1.getBase();
+        b2.baseValue = 20;
+        System.out.println(o2.getBase().baseValue);
+        System.out.println(o1.getBase().baseValue);
+    }
 }
