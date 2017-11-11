@@ -1,4 +1,4 @@
-package com.skawndy;
+package com.skawndy.Todo;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
