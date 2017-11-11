@@ -61,6 +61,10 @@ public class TodoList {
         return newTask;
     }
 
+    public TodoList(String name){
+        this.name = name;
+    }
+
     public void setName(String newname){
         this.name = newname; // 목록 이름 바꾸기
     }
