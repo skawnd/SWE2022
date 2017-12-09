@@ -21,28 +21,35 @@ public class TodoList {
 
     // Hide가 true이면 Tasks를 보여주고, Hide가 false이면 Origin_Tasks를 보여줌
 
-    public TodoTask addTodo(String name, int year, int month, int day, boolean TF){
-        TodoTask newTask = new TodoTask(name, year, month, day);
-        //Tasks.add(newTask);
-        if (TF == true){
-            Scanner in = new Scanner(System.in);
-            System.out.println("which year?");
-            int Year = in.nextInt();
-            System.out.println("which month?");
-            int Month = in.nextInt();
-            System.out.println("which day?");
-            int Day = in.nextInt();
-            System.out.println("which hour?");
-            int Hour = in.nextInt();
-            System.out.println("which minute?");
-            int Minute = in.nextInt();
+    public TodoTask addTodo(String name, int... values) {
+        if (values.length == 3) {
+            int year = values[0];
+            int month = values[1];
+            int day = values[2];
 
-            newTask.setAlarm(Year, Month, Day, Hour, Minute);
+            TodoTask newTask = new TodoTask(name, year, month, day);
+
+            Tasks.add(newTask);
+            //this.showTasks();
+            return newTask;
+        }else{
+        //if (values.length == 8) {
+
+            int year = values[0];
+            int month = values[1];
+            int day = values[2];
+            int alarmYear = values[3];
+            int alarmMonth = values[4];
+            int alarmDay = values[5];
+            int alarmHr = values[6];
+            int alarmMin = values[7];
+
+            TodoTask newTask = new TodoTask(name, year, month, day);
+            newTask.setAlarm(alarmYear,alarmMonth,alarmDay,alarmHr,alarmMin);
+            Tasks.add(newTask);
+            //this.showTasks();
+            return newTask;
         }
-
-        Tasks.add(newTask);
-        //this.showTasks();
-        return newTask;
     }
 
     public void showTasks() {
@@ -54,7 +61,7 @@ public class TodoList {
                         + "[" + i.getFinished2() + "] "
                         + i.getName() + " " + i.getDeadline().getYear() + " " +
                         i.getDeadline().getMonthValue() + " " +
-                        i.getDeadline().getDayOfMonth() + " " + i.getAlarm2());
+                        i.getDeadline().getDayOfMonth()  + i.getAlarm2());
             }
         }
     }

@@ -52,7 +52,7 @@ public class TodoTask {
     public String getAlarm2(){
         // 실습 과제 3의 "알림" 표시용 메서드.
         if (this.getAlarm() instanceof LocalDateTime){
-            return "알림";
+            return ", 알림";
         }
             return "";
     }

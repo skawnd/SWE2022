@@ -52,6 +52,7 @@ public class App {
             }
         }
     }
+    /*
     public void OnTheApp(InputStream src){
         Scanner in = new Scanner(src).useDelimiter("\\n");
         exit:
@@ -134,13 +135,14 @@ public class App {
                             if ("setHide".equals(s)){
                                 todolist.setHide();
                             }
+
                             /*
                             if ("choiceTask".equals(s)){
                                 System.out.println("what is your choosing list?");
                                 String taskname = in.nextLine();
                                 todolist.choiceTask(taskname);
                             }
-                            */
+
 
 
                             System.out.println("---------------------------------------------------------");
@@ -159,12 +161,111 @@ public class App {
             }
         }
     }
+    */
 
+    public void onTheApp(InputStream src) {
+        Scanner in = new Scanner(src).useDelimiter("\\n");
+        exit:
+        while (true) {
+            // 3차 실습 과제 1번 문제에 해당합니다.
+            TodoList List1 = this.addList("집에서 할 일");
+            TodoList List2 = this.addList("학교 숙제");
+
+            List1.addTodo("만화 보기", 2017, 12, 9);
+            List1.addTodo("커밋하기", 2017, 12, 11);
+            List1.addTodo("자바 공부", 2017, 12, 8);
+
+            List2.addTodo("과제1커밋하기", 2017, 11, 30, 2017, 11, 30, 12, 30);
+            List2.addTodo("친구랑 약속", 2017, 12, 3);
+
+            this.showLists();
+            in.reset();
+
+            App:
+            while (in.hasNext()) {
+                // 3차 실습 과제 2번 문제에 해당합니다.
+                String order = in.nextLine();
+                if (order.equals("exit")){
+                    break exit;
+                }
+                if (order.startsWith("addList:")) {
+                    String name = order.substring(8, order.length());
+                    this.addList(name);
+                    this.showLists();
+                }
+                // 3차 실습 과제 3번 문제에 해당합니다.
+                if (order.startsWith("list:")) {
+                    String name = order.substring(5, order.length());
+                    TodoList todolist = null;
+                    for (TodoList n : this.Lists) {
+                        if (n.getName().equals(name)) {
+                            todolist = n;
+                        }
+                    }
+
+                    if (todolist == null) {
+                        System.out.println("There isn't that list!");
+                    } else {
+                        todolist.showTasks();
+
+                        // 목록을 선택해서 목록의 화면으로 이동한 상황.
+                        Listpage:
+                        while (in.hasNext()) {
+                            String order2 = in.nextLine();
+
+                            if (order2.equals("out")){
+                                break Listpage;
+                            }
+                            // 3차 실습 과제 4번 문제에 해당합니다.
+                            if (order2.startsWith("addTodo:")){
+                                String[] body = order2.substring(8, order2.length()).split(",");
+                                if (body.length == 2){ //알람 시간이 없는 경우
+                                    String taskname = body[0];
+                                    int taskYear = Integer.parseInt(body[1].split("\\.")[0]);
+                                    int taskMonth = Integer.parseInt(body[1].split("\\.")[1]);
+                                    int taskDay = Integer.parseInt(body[1].split("\\.")[2]);
+
+                                    todolist.addTodo(taskname,taskYear,taskMonth,taskDay);
+                                }else{
+                                    String taskname = body[0];
+                                    int taskYear = Integer.parseInt(body[1].split("\\.")[0]);
+                                    int taskMonth = Integer.parseInt(body[1].split("\\.")[1]);
+                                    int taskDay = Integer.parseInt(body[1].split("\\.")[2]);
+                                    String body2 = body[2];
+                                    int alarmYear = Integer.parseInt(body2.split("\\.")[0]);
+                                    int alarmMonth =  Integer.parseInt(body2.split("\\.")[1]);
+                                    int alarmDay = Integer.parseInt(body2.split("\\.")[2].split(" ")[0]);
+                                    int alarmHr = Integer.parseInt(body2.split("\\.")[2].split(" ")[1].split(":")[0]);
+                                    int alarmMin = Integer.parseInt(body2.split("\\.")[2].split(" ")[1].split(":")[1]);
+
+                                    todolist.addTodo(taskname,taskYear,taskMonth,taskDay, alarmYear, alarmMonth, alarmDay, alarmHr, alarmMin);
+
+                                }
+                                todolist.showTasks();
+                            }
+                            // 3차 실습 과제 5번 문제에 해당합니다.
+                            if (order2.startsWith("complete:")){
+                                String taskname = order2.substring(9,order2.length());
+                                todolist.setComplete(taskname);
+                                todolist.showTasks();
+                            }
+                            // 3차 실습 과제 6번 문제에 해당합니다.
+                            if (order2.startsWith("incomplete:")){
+                                String taskname = order2.substring(11,order2.length());
+                                todolist.setComplete(taskname);
+                                todolist.showTasks();
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
     public static void main(String[] arg){
         // 단순 확인용
         App Myapp = new App();
 
-        Myapp.OnTheApp(System.in);
+        Myapp.onTheApp(System.in);
 
 
 
