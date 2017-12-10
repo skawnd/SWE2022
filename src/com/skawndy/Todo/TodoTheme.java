@@ -1,8 +1,9 @@
 package com.skawndy.Todo;
 
+import java.io.Serializable;
 import java.util.Random;
 
-public class TodoTheme {
+public class TodoTheme implements Serializable{
     private Color color;
     private Image image;
     Random generator = new Random(); // 테마를 랜덤 발생시키기 위해 정의.

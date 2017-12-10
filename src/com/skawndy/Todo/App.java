@@ -1,6 +1,11 @@
 package com.skawndy.Todo;
 
-import java.io.InputStream;
+import jdk.internal.util.xml.impl.Input;
+
+import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -13,7 +18,7 @@ import java.util.Scanner;
 // TodoList, 즉 목록은 정렬 순서가 따로 없음. 오늘 할 일과 To-Do라는 목록이 항상 위에 고정.
 // 그 다음에는 만든 순서대로 정렬됨.
 
-public class App {
+public class App implements Serializable {
     // 파이널 처리.
     private ArrayList<TodoList> Lists = new ArrayList<TodoList>();
     // 어플에서 사용할 수 있는 명령어를 정의. 한정시킴.
@@ -21,9 +26,7 @@ public class App {
             "addList", "delList", "choiceList", "addTodo", "delTodo", "setComplete", "setHide",
             "sort", "choiceTask" )
     );
-
-
-
+    private Path loading;
 
     public TodoList addList(String name){
         TodoList newList = new TodoList(name);
@@ -163,7 +166,7 @@ public class App {
     }
     */
 
-    public void onTheApp(InputStream src) {
+    public void onTheApp(InputStream src) throws IOException {
         Scanner in = new Scanner(src).useDelimiter("\\n");
         exit:
         while (true) {
@@ -180,10 +183,12 @@ public class App {
 
             this.showLists();
             in.reset();
-
+            System.out.println("< List page >");
             App:
+
             while (in.hasNext()) {
                 // 3차 실습 과제 2번 문제에 해당합니다.
+
                 String order = in.nextLine();
                 if (order.equals("exit")){
                     break exit;
@@ -192,6 +197,38 @@ public class App {
                     String name = order.substring(8, order.length());
                     this.addList(name);
                     this.showLists();
+                }
+                // 4차 실습 과제 1번 문제에 해당합니다.
+                // save시 파일에 저장하고 앱을 종료합니다.
+                if (order.equals("save")){
+                    Path path = Paths.get("D:\\","App.txt");
+                    OutputStream file;
+                    if (!Files.exists(path)) {
+                       file = Files.newOutputStream( Files.createFile(path) );
+                    }else{
+                        file = Files.newOutputStream(path);
+                    }
+
+                    try (ObjectOutputStream out = new ObjectOutputStream( file )){
+                        out.writeObject(this.Lists);
+                    }
+
+                    break exit;
+                }
+                // 4차 실습 과제 2번 문제에 해당합니다.
+                // load시 파일에서 객체를 불러옵니다.
+                if (order.equals("load")){
+                    Path path = Paths.get("D:\\","App.txt");
+
+                    try {
+                        ObjectInputStream In = new ObjectInputStream(Files.newInputStream(path));
+                        this.Lists = (ArrayList<TodoList>) In.readObject();
+                        this.showLists();
+                    } catch (IOException ex) {
+                        System.out.println("It's wrong path");
+                    } catch (ClassNotFoundException ex) {
+                        System.out.println("wrong class");
+                    }
                 }
                 // 3차 실습 과제 3번 문제에 해당합니다.
                 if (order.startsWith("list:")) {
@@ -207,10 +244,13 @@ public class App {
                         System.out.println("There isn't that list!");
                     } else {
                         todolist.showTasks();
+                        System.out.println("< Task page >");
 
                         // 목록을 선택해서 목록의 화면으로 이동한 상황.
                         Listpage:
+
                         while (in.hasNext()) {
+
                             String order2 = in.nextLine();
 
                             if (order2.equals("out")){
@@ -255,18 +295,29 @@ public class App {
                                 todolist.setComplete(taskname);
                                 todolist.showTasks();
                             }
+                            System.out.println("<Task page>");
                         }
                     }
                 }
+                System.out.println("< List page >");
             }
+
         }
     }
-    public static void main(String[] arg){
+    public static void main(String[] arg) throws IOException {
         // 단순 확인용
         App Myapp = new App();
-
         Myapp.onTheApp(System.in);
 
+
+
+
+        //Path absolute = Paths.get("D:\\");
+        //Path tempFile = Files.createTempFile(absolute, "nj",".txt" );
+
+        //InputStream in = Files.newInputStream(absolute);
+        //String b = Integer.toString(in.read());
+        //System.out.println(b);
 
 
     }

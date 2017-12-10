@@ -8,11 +8,12 @@ package com.skawndy.Todo;
 
 import lesson1.Array;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Scanner;
 
-public class TodoList {
+public class TodoList implements Serializable {
     private TodoTheme theme;
     private String Name; // 목록 이름은 변경 가능함.
     private ArrayList<TodoTask> Tasks = new ArrayList<TodoTask>();

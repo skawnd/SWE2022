@@ -1,10 +1,11 @@
 package com.skawndy.Todo;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Date;
 
-public class TodoTask {
+public class TodoTask implements Serializable {
     private String Name; // 할 일의 이름도 변경 가능함
     private LocalDate Deadline; // 기한 설정 - Date 클래스 참조함. 현재 날짜와 할 일이 완료되었는지 비교할 것.
     private String Memo; // 노트 추가
